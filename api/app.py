@@ -1,5 +1,5 @@
-from flask_openapi3 import OpenAPI, Info, Tag
 from flask import redirect
+from flask_openapi3 import OpenAPI, Info, Tag
 from urllib.parse import unquote
 
 from sqlalchemy.exc import IntegrityError
