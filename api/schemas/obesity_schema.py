@@ -1,10 +1,10 @@
 from pydantic import BaseModel
 from typing import Optional, List
-from model.paciente import Paciente
+from model.obesity import Pessoa
 import json
 import numpy as np
 
-class PacienteSchema(BaseModel):
+class PessoaSchema(BaseModel):
     """ Define como um novo paciente a ser inserido deve ser representado
     """
     name: str = "Maria"
@@ -17,8 +17,8 @@ class PacienteSchema(BaseModel):
     pedi: float = 0.627
     age: int = 50
     
-class PacienteViewSchema(BaseModel):
-    """Define como um paciente será retornado
+class PessoaViewSchema(BaseModel):
+    """Define como uma Pessoa será retornado
     """
     id: int = 1
     name: str = "Maria"
@@ -32,25 +32,25 @@ class PacienteViewSchema(BaseModel):
     age: int = 50
     outcome: int = None
     
-class PacienteBuscaSchema(BaseModel):
+class PessoaBuscaSchema(BaseModel):
     """Define como deve ser a estrutura que representa a busca.
     Ela será feita com base no nome do paciente.
     """
     name: str = "Maria"
 
-class ListaPacientesSchema(BaseModel):
+class ListaPessoasSchema(BaseModel):
     """Define como uma lista de pacientes será representada
     """
-    pacientes: List[PacienteSchema]
+    pessoas: List[PessoaSchema]
 
     
-class PacienteDelSchema(BaseModel):
+class PessoaDelSchema(BaseModel):
     """Define como um paciente para deleção será representado
     """
     name: str = "Maria"
     
 # Apresenta apenas os dados de um paciente    
-def apresenta_paciente(paciente: Paciente):
+def apresenta_pessoa(pessoa: Pessoa):
     """ Retorna uma representação do paciente seguindo o schema definido em
         PacienteViewSchema.
     """
@@ -68,25 +68,25 @@ def apresenta_paciente(paciente: Paciente):
         "outcome": paciente.outcome
     }
     
-# Apresenta uma lista de pacientes
-def apresenta_pacientes(pacientes: List[Paciente]):
+# Apresenta uma lista de pessoas
+def apresenta_pessoas(pessoas: List[Pessoa]):
     """ Retorna uma representação do paciente seguindo o schema definido em
-        PacienteViewSchema.
+        PessoasViewSchema.
     """
     result = []
-    for paciente in pacientes:
+    for pessoa in pessoas:
         result.append({
-            "id": paciente.id,
-            "name": paciente.name,
-            "preg": paciente.preg,
-            "plas": paciente.plas,
-            "pres": paciente.pres,    
-            "skin": paciente.skin,
-            "test": paciente.test,
-            "mass": paciente.mass,
-            "pedi": paciente.pedi,
-            "age": paciente.age,
-            "outcome": paciente.outcome
+            "id": pessoa.id,
+            "name": pessoa.name,
+            "preg": pessoa.preg,
+            "plas": pessoa.plas,
+            "pres": pessoa.pres,    
+            "skin": pessoa.skin,
+            "test": pessoa.test,
+            "mass": pessoa.mass,
+            "pedi": pessoa.pedi,
+            "age": pessoa.age,
+            "outcome": pessoa.outcome
         })
 
-    return {"pacientes": result}
+    return {"pessoas": result}

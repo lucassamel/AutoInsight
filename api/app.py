@@ -6,7 +6,8 @@ from sqlalchemy.exc import IntegrityError
 
 from model import *
 from logger import logger
-from schemas import *
+from schemas.error_schema import *
+from schemas.obesity_schema import *
 from flask_cors import CORS
 
 
@@ -23,8 +24,8 @@ home_tag = Tag(
     description="Seleção de documentação: Swagger, Redoc ou RapiDoc",
 )
 paciente_tag = Tag(
-    name="Paciente",
-    description="Adição, visualização, remoção e predição de pacientes com Diabetes",
+    name="Pessoa",
+    description="Adição, visualização, remoção e predição de pessoas com Obesidade",
 )
 
 
@@ -46,7 +47,7 @@ def docs():
 @app.get(
     "/pacientes",
     tags=[paciente_tag],
-    responses={"200": PacienteViewSchema, "404": ErrorSchema},
+    responses={"200": PessoaViewSchema, "404": ErrorSchema},
 )
 def get_pacientes():
     """Lista todos os pacientes cadastrados na base
@@ -60,7 +61,7 @@ def get_pacientes():
     # Criando conexão com a base
     session = Session()
     # Buscando todos os pacientes
-    pacientes = session.query(Paciente).all()
+    pacientes = session.query(Pessoa).all()
 
     if not pacientes:
         # Se não houver pacientes
@@ -68,7 +69,7 @@ def get_pacientes():
     else:
         logger.debug(f"%d pacientes econtrados" % len(pacientes))
         print(pacientes)
-        return apresenta_pacientes(pacientes), 200
+        return apresenta_pessoas(pacientes), 200
 
 
 # Rota de adição de paciente
@@ -76,12 +77,12 @@ def get_pacientes():
     "/paciente",
     tags=[paciente_tag],
     responses={
-        "200": PacienteViewSchema,
+        "200": PessoaViewSchema,
         "400": ErrorSchema,
         "409": ErrorSchema,
     },
 )
-def predict(form: PacienteSchema):
+def predict(form: PessoaSchema):
     """Adiciona um novo paciente à base de dados
     Retorna uma representação dos pacientes e diagnósticos associados.
 
@@ -104,12 +105,12 @@ def predict(form: PacienteSchema):
     # Preparando os dados para o modelo
     X_input = preprocessador.preparar_form(form)
     # Carregando modelo
-    model_path = "./MachineLearning/pipelines/rf_diabetes_pipeline.pkl"
+    model_path = "./MachineLearning/pipelines/rf_obesity_pipeline.pkl"
     modelo = pipeline.carrega_pipeline(model_path)
     # Realizando a predição
     outcome = int(modelo.predict(X_input)[0])
 
-    paciente = Paciente(
+    paciente = Pessoa(
         name=name,
         preg=preg,
         plas=plas,
@@ -127,21 +128,21 @@ def predict(form: PacienteSchema):
         # Criando conexão com a base
         session = Session()
 
-        # Checando se paciente já existe na base
-        if session.query(Paciente).filter(Paciente.name == form.name).first():
+        # Checando se pessoa já existe na base
+        if session.query(Pessoa).filter(Pessoa.name == form.name).first():
             error_msg = "Paciente já existente na base :/"
             logger.warning(
                 f"Erro ao adicionar paciente '{paciente.name}', {error_msg}"
             )
             return {"message": error_msg}, 409
 
-        # Adicionando paciente
+        # Adicionando pessoa
         session.add(paciente)
         # Efetivando o comando de adição
         session.commit()
         # Concluindo a transação
         logger.debug(f"Adicionado paciente de nome: '{paciente.name}'")
-        return apresenta_paciente(paciente), 200
+        return apresenta_pessoa(paciente), 200
 
     # Caso ocorra algum erro na adição
     except Exception as e:
@@ -157,9 +158,9 @@ def predict(form: PacienteSchema):
 @app.get(
     "/paciente",
     tags=[paciente_tag],
-    responses={"200": PacienteViewSchema, "404": ErrorSchema},
+    responses={"200": PessoaViewSchema, "404": ErrorSchema},
 )
-def get_paciente(query: PacienteBuscaSchema):
+def get_paciente(query: PessoaBuscaSchema):
     """Faz a busca por um paciente cadastrado na base a partir do nome
 
     Args:
@@ -175,7 +176,7 @@ def get_paciente(query: PacienteBuscaSchema):
     session = Session()
     # fazendo a busca
     paciente = (
-        session.query(Paciente).filter(Paciente.name == paciente_nome).first()
+        session.query(Pessoa).filter(Pessoa.name == paciente_nome).first()
     )
 
     if not paciente:
@@ -188,16 +189,16 @@ def get_paciente(query: PacienteBuscaSchema):
     else:
         logger.debug(f"Paciente econtrado: '{paciente.name}'")
         # retorna a representação do paciente
-        return apresenta_paciente(paciente), 200
+        return apresenta_pessoa(paciente), 200
 
 
 # Rota de remoção de paciente por nome
 @app.delete(
     "/paciente",
     tags=[paciente_tag],
-    responses={"200": PacienteViewSchema, "404": ErrorSchema},
+    responses={"200": PessoaViewSchema, "404": ErrorSchema},
 )
-def delete_paciente(query: PacienteBuscaSchema):
+def delete_paciente(query: PessoaBuscaSchema):
     """Remove um paciente cadastrado na base a partir do nome
 
     Args:
@@ -215,7 +216,7 @@ def delete_paciente(query: PacienteBuscaSchema):
 
     # Buscando paciente
     paciente = (
-        session.query(Paciente).filter(Paciente.name == paciente_nome).first()
+        session.query(Pessoa).filter(Pessoa.name == paciente_nome).first()
     )
 
     if not paciente:

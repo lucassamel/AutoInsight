@@ -27,7 +27,7 @@ class Pessoa(Base):
     tue = Column("TUE", Integer)
     calc = Column("CALC", Integer)
     bike = Column("Bike", Integer)
-    motorbike = Column("Motorbike")
+    motorbike = Column("Motorbike", Integer)
     public_transportation = Column("PublicTransportation", Integer)
     walking = Column("Walking", Integer)
     outcome = Column("Diagnostic", Integer, nullable=True)
