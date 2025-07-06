@@ -44,16 +44,12 @@ class PreProcessador:
                     form.ncp,
                     form.caec,
                     form.smoke,
-                    form.sh2o,
+                    form.ch2o,
                     form.scc,
                     form.faf,
                     form.tue,
-                    form.calc,
-                    form.bike,
-                    form.motorbike,
-                    form.automobile,
-                    form.public_transportation,
-                    form.walking         
+                    form.calc,                    
+                    form.transportation                         
                         ])
         # Faremos o reshape para que o modelo entenda que estamos passando
         X_input = X_input.reshape(1, -1)

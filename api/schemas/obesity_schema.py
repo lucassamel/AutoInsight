@@ -8,13 +8,13 @@ class PessoaSchema(BaseModel):
     """ Define como uma nova pessoa a ser inserida deve ser representada
     """
     nome: str = "Maria"
-    gender: int = 0
+    gender: int = 1
     age: int = 30
     height: float = 1.70
     weight: int = 70
-    family_history: int = 0
-    favc: float = 33.6
-    fcvc: float = 0.627
+    family_history: int = 1
+    favc: int = 1
+    fcvc: int = 1
     ncp: int = 50
     caec: int = 50
     smoke: int = 50
@@ -35,8 +35,8 @@ class PessoaViewSchema(BaseModel):
     height: float = 1.70
     weight: int = 70
     family_history: int = 0
-    favc: float = 33.6
-    fcvc: float = 0.627
+    favc: int = 1
+    fcvc: int = 1
     ncp: int = 50
     caec: int = 50
     smoke: int = 50
@@ -52,7 +52,7 @@ class PessoaBuscaSchema(BaseModel):
     """Define como deve ser a estrutura que representa a busca.
     Ela será feita com base no nome da pessoa
     """
-    name: str = "Maria"
+    nome: str = "Maria"
 
 class ListaPessoasSchema(BaseModel):
     """Define como uma lista de pessoas será representada
@@ -63,7 +63,7 @@ class ListaPessoasSchema(BaseModel):
 class PessoaDelSchema(BaseModel):
     """Define como uma pessoa para deleção será representado
     """
-    name: str = "Maria"
+    nome: str = "Maria"
     
 # Apresenta apenas os dados de um paciente    
 def apresenta_pessoa(pessoa: Pessoa):
@@ -101,24 +101,24 @@ def apresenta_pessoas(pessoas: List[Pessoa]):
     for pessoa in pessoas:
         result.append({
             "id": pessoa.id,
-        "nome": pessoa.nome,
-        "gender": pessoa.gender,
-        "age": pessoa.age,
-        "height": pessoa.height,
-        "weight": pessoa.weight,
-        "family_history": pessoa.family_history,
-        "favc": pessoa.favc,
-        "fcvc": pessoa.fcvc,
-        "ncp": pessoa.ncp,
-        "caec": pessoa.caec,
-        "smoke": pessoa.smoke,
-        "ch2o": pessoa.ch2o,
-        "scc": pessoa.scc,
-        "faf": pessoa.faf,
-        "tue": pessoa.tue,
-        "calc": pessoa.calc,
-        "transportation": pessoa.transportation,
-        "outcome": pessoa.outcome
+            "nome": pessoa.nome,
+            "gender": pessoa.gender,
+            "age": pessoa.age,
+            "height": pessoa.height,
+            "weight": pessoa.weight,
+            "family_history": pessoa.family_history,
+            "favc": pessoa.favc,
+            "fcvc": pessoa.fcvc,
+            "ncp": pessoa.ncp,
+            "caec": pessoa.caec,
+            "smoke": pessoa.smoke,
+            "ch2o": pessoa.ch2o,
+            "scc": pessoa.scc,
+            "faf": pessoa.faf,
+            "tue": pessoa.tue,
+            "calc": pessoa.calc,
+            "transportation": pessoa.transportation,
+            "outcome": pessoa.outcome
         })
 
     return {"pessoas": result}

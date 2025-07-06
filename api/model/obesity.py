@@ -33,7 +33,7 @@ class Pessoa(Base):
     
     def __init__(self, nome:str, gender:int, height:float, weight:int, family_history:int,
                  age:int, favc:int, fcvc:int, ncp:int, 
-                 caec:int, smoke:int, sh2o:int, 
+                 caec:int, smoke:int, ch2o:int, 
                  scc:int, faf:int, tue:int,
                  calc:int, transportation:int, outcome:int, 
                  data_insercao:Union[DateTime, None] = None):
@@ -72,7 +72,7 @@ class Pessoa(Base):
         self.ncp = ncp
         self.caec = caec
         self.smoke = smoke
-        self.sh2o = sh2o
+        self.ch2o = ch2o
         self.scc = scc
         self.faf = faf
         self.tue = tue
