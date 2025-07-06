@@ -1,67 +1,152 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="styles.css">
-
-    <title>AI Obeesity System</title>
-    <link rel="icon" href="img/home_logo.jpeg" type="image/png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulário de Saúde</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-     <!-- Cabeçalho de informações do sistema -->
-    <header>
-        <div class="title">
-            <h2>Bem-Vindo ao AI Diabetes System</h2>
-            <br>
-            <p>Este sistema foi desenvolvido para auxiliar no diagnóstico de diabetes.</p>
-            <p>Para isso, basta preencher os campos abaixo com os dados do paciente e clicar em "Diagnosticar".</p>
-        </div>
-        <!-- <div class="banner">
-            <img src="img/home.jpeg">
-        </div> -->
-    </header>
+  <div class="container">
+    <h1>Formulário de Hábitos de Saúde</h1>
+    <form id="health-form">
+      <div class="form-grid">
+        <input id="nome" type="text" name="nome" placeholder="Nome" required />
+        <select id="gender" name="genero" required>
+          <option value="">Gênero</option>
+          <option value="0">Masculino</option>
+          <option value="1">Feminino</option>
+        </select>
+        <input id="age" type="number" name="idade" placeholder="Idade" required />
+        <input id="height" type="number" step="0.01" name="altura" placeholder="Altura (m)" required />
+        <input id="weight" type="number" name="peso" placeholder="Peso (kg)" required />
 
-     <!-- Opções para adicionar um novo item -->
-     
-    <section class="newItem">
-        <input type="text" id="newInput" placeholder="Nome">
-        <input type="text" id="newPreg" placeholder="Pregancies">
-        <input type="text" id="newPlas" placeholder="Glucose">
-        <input type="text" id="newPres" placeholder="Blood Pressure">
-        <input type="text" id="newSkin" placeholder="Skin Thickness">
-        <input type="text" id="newTest" placeholder="Insulin">
-        <input type="text" id="newMass" placeholder="BMI">
-        <input type="text" id="newPedi" placeholder="Diabetes Pedigree Function">
-        <input type="text" id="newAge" placeholder="Age">
-        <button type="button" onclick="newItem(event)" class="addBtn">Diagnosticar</button>
-    </section>    <!-- Tabela com items existentes -->
-    <section class="items">
-        <div class="table-container">
-            <table id="myTable">
-                <tr>
-                    <th>Nome</th>
-                    <th>Pregancies</th>
-                    <th>Glucose</th>
-                    <th>Blood Pressure</th>
-                    <th>Skin Thickness</th>
-                    <th>Insulin</th>
-                    <th>BMI</th>
-                    <th>Diabetes Pedigree Function</th>
-                    <th>Age</th>
-                    <th>Diagnostic</th>
-                    <th><img src="https://cdn-icons-png.flaticon.com/512/126/126468.png" width="15" height="15"></th>
-                    <!-- <th><img src="img/edit.png" width="15" height="15"></th> -->
-                </tr>
-            </table>
-        </div>
-    </section>
+        <select id="family_history" name="historico_familiar" required>
+          <option value="">Histórico Familiar</option>
+          <option value="1">Sim</option>
+          <option value="2">Não</option>
+        </select>
 
-    <script src="scripts.js"></script>
+        <select id="favc" name="alimentos_caloricos" required>
+          <option value="">Alimentos Calóricos?</option>
+          <option value="1">Sim</option>
+          <option value="0">Não</option>
+        </select>
+
+        <select id="fcvc" name="vegetais" required>
+          <option value="">Vegetais nas refeições</option>
+          <option value="0">Nunca</option>
+          <option value="1">Às vezes</option>
+          <option value="2">Sempre</option>
+        </select>
+
+        <select id="ncp" name="refeicoes_dia" required>
+          <option value="">Refeições por dia</option>
+          <option value="0">Entre 1 e 2</option>
+          <option value="1">Três</option>
+          <option value="2">Mais de três</option>
+        </select>
+
+        <select id="caec" name="comida_entre_refeicoes" required>
+          <option value="">Come entre refeições?</option>
+          <option value="1">Sim</option>
+          <option value="0">Não</option>
+        </select>
+
+        <select id="smoke" name="fuma" required>
+          <option value="">Você fuma?</option>
+          <option value="1">Sim</option>
+          <option value="0">Não</option>
+        </select>
+
+        <select id="ch2o" name="agua" required>
+          <option value="">Consumo de água</option>
+          <option value="0">Menos de 1 litro</option>
+          <option value="1">Entre 1 e 2 litros</option>
+          <option value="2">Mais de 2 litros</option>
+        </select>
+
+        <select id="scc" name="monitora_calorias" required>
+          <option value="">Monitora calorias?</option>
+          <option value="1">Sim</option>
+          <option value="0">Não</option>
+        </select>
+
+        <select id="faf" name="atividade_fisica" required>
+          <option value="">Atividade física</option>
+          <option value="0">Não faço</option>
+          <option value="1">1 ou 2 dias</option>
+          <option value="2">2 a 4 dias</option>
+          <option value="3">4 ou 5 dias</option>
+        </select>
+
+        <select id="tue" name="tempo_tela" required>
+          <option value="">Tempo com tecnologia</option>
+          <option value="0">0 - 2 horas</option>
+          <option value="1">3 - 5 horas</option>
+          <option value="2">Mais de 5 horas</option>
+        </select>
+
+        <select id="calc" name="alcool" required>
+          <option value="">Consumo de álcool</option>
+          <option value="0">Eu não bebo</option>
+          <option value="1">Às vezes</option>
+          <option value="2">Frequentemente</option>
+          <option value="3">Sempre</option>
+        </select>
+
+        <select id="transportation" name="transporte" required>
+          <option value="">Meio de transporte</option>
+          <option value="0">Transporte Público</option>
+          <option value="1">Caminhada</option>
+          <option value="2">Moto</option>
+          <option value="3">Bicicleta</option>
+          <option value="4">Carro</option>
+        </select>
+      </div>
+      <button type="submit" onclick="newItem(event)">Enviar</button>
+    </form>
+
+    <h2>Dados Recebidos</h2>
+    <div class="table-wrapper">
+      <div class="table-container">
+        <table id="data-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nome</th>
+              <th>Gênero</th>
+              <th>Idade</th>
+              <th>Altura</th>
+              <th>Peso</th>
+              <th>Histórico Familiar</th>
+              <th>Alimentos Calóricos?</th>
+              <th>Vegetais nas refeições?</th>
+              <th>Refeições por dia</th>
+              <th>Come entre as refeições</th>
+              <th>Fumante</th>
+              <th>Água</th>
+              <th>Monitora Calorias</th>
+              <th>Atividade Física</th>
+              <th>Tempo de tela</th>
+              <th>Álcool</th>
+              <th>Transporte</th>
+              <th>Nível de Obesidade</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+          <tbody id="table-body">
+            <!-- Dados inseridos dinamicamente -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="scripts.js"></script>
 </body>
 
 </html>
-

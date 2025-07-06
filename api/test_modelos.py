@@ -1,4 +1,5 @@
 from model import *
+from sklearn.preprocessing import LabelEncoder
 
 # To run: pytest -v test_modelos.py
 
@@ -9,12 +10,29 @@ avaliador = Avaliador()
 pipeline = Pipeline()
 
 # Parâmetros    
-url_dados = "./MachineLearning/data/test_dataset_diabetes.csv"
+url_dados = "./MachineLearning/data/test_dataset_obesity.csv"
 colunas = ['Gender', 'Age', 'Height', 'Weight', 'family_history_with_overweight', 'FAVC',	
-           'FCVC', 'NCP', 'CAEC', 'SMOKE', 'CH2O', 'SCC', 'FAF', 'TUE',	'CALC',	'MTRANS']
+           'FCVC', 'NCP', 'CAEC', 'SMOKE', 'CH2O', 'SCC', 'FAF', 'TUE',	'CALC',	'MTRANS', 'NObeyesdad']
 
 # Carga dos dados
 dataset = carregador.carregar_dados(url_dados, colunas)
+
+caec_map = {'no': 0, 'Sometimes': 1, 'Frequently': 2, 'Always': 3}
+calc_map = {'no': 0, 'Sometimes': 1, 'Frequently': 2, 'Always': 3}
+mtrans_map = {'Public_Transportation': 0, 'Walking': 1, 'Motorbike': 2, 'Bike': 3, 'Automobile': 4}
+obeyesdad_map = {'Normal_Weight': 0, 'Insufficient_Weight': 1, 'Obesity_Type_I': 2, 'Obesity_Type_II': 3,
+                 'Obesity_Type_III': 4, 'Overweight_Level_I': 5, 'Overweight_Level_II': 6}
+
+dataset['CAEC'] = dataset['CAEC'].map(caec_map)
+dataset['CALC'] = dataset['CALC'].map(calc_map)
+dataset['MTRANS'] = dataset['MTRANS'].map(mtrans_map)
+dataset['NObeyesdad'] = dataset['NObeyesdad'].map(obeyesdad_map)
+
+label_cols = ['Gender', 'family_history_with_overweight',  'FAVC', 'SMOKE', 
+               'SCC','NObeyesdad' ]
+for col in label_cols:
+    dataset[col] = LabelEncoder().fit_transform(dataset[col])
+
 array = dataset.values
 X = array[:,0:-1]
 y = array[:,-1]
@@ -55,7 +73,7 @@ def test_modelo_knn():
 # Método para testar pipeline Random Forest a partir do arquivo correspondente
 def test_modelo_rf():
     # Importando pipeline de Random Forest
-    rf_path = './MachineLearning/pipelines/rf_obesity_pipeline.pkl'
+    rf_path = './MachineLearning/pipelines/obesity_knn.pkl'
     modelo_rf = pipeline.carrega_pipeline(rf_path)
 
     # Obtendo as métricas do Random Forest

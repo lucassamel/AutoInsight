@@ -12,7 +12,7 @@ class Pessoa(Base):
     
     id = Column(Integer, primary_key=True)
     nome = Column("Name", String(100))
-    gender= Column("Gender", String(50))
+    gender= Column("Gender", Integer)
     age = Column("Age", Integer)
     height = Column("Height", Float)
     weight = Column("Weight", Integer)

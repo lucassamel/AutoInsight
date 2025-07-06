@@ -187,11 +187,11 @@ def test_prediction_edge_cases(client):
     # Teste com valores máximos típicos
     max_data = {
         "nome": "Paula",
-        "gender": 0,
-        "age": 65,
-        "height": 1.90,
-        "weight": 150,
-        "family_history": 1,
+        "gender": 1,
+        "age": 32,
+        "height": 1.65,
+        "weight": 60,
+        "family_history": 0,
         "favc": 1,
         "fcvc": 1,
         "ncp": 1,
@@ -202,7 +202,7 @@ def test_prediction_edge_cases(client):
         "faf": 1,
         "tue": 1,
         "calc": 1,
-        "transportation": 4
+        "transportation": 3
     }
     
     response = client.post('/pessoa', 

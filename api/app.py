@@ -149,6 +149,9 @@ def predict(form: PessoaSchema):
             logger.warning(
                 f"Erro ao adicionar pessoa '{pessoa.nome}', {error_msg}"
             )
+            logger.error(
+                f"Erro ao adicionar pessoa '{pessoa.nome}', {error_msg}"
+            )
             return {"message": error_msg}, 409
 
         # Adicionando pessoa
@@ -185,7 +188,7 @@ def get_pessoa(query: PessoaBuscaSchema):
         dict: representação da pessoa e classificação de obesidade
     """
 
-    pessoa_nome = query.name
+    pessoa_nome = query.nome
     logger.debug(f"Coletando dados sobre produto #{pessoa_nome}")
     # criando conexão com a base
     session = Session()

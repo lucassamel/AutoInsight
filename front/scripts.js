@@ -1,24 +1,129 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("health-form");
+  const tableBody = document.getElementById("table-body");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    renderTable([data]);
+  });
+
+  function renderTable(dataArray) {
+    tableBody.innerHTML = "";
+
+    dataArray.forEach((item, index) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${item.nome}</td>
+        <td>${item.genero == 0 ? "Masculino" : "Feminino"}</td>
+        <td>${item.idade}</td>
+        <td>${item.altura}</td>
+        <td>${item.peso}</td>
+        <td>${["<1L", "1-2L", ">2L"][item.agua]}</td>
+        <td>${["Nenhuma", "1-2d", "2-4d", "4-5d"][item.atividade_fisica]}</td>
+        <td>${["Nunca", "Às vezes", "Sempre"][item.vegetais]}</td>
+        <td>${["Não bebo", "Às vezes", "Freq.", "Sempre"][item.alcool]}</td>
+        <td>${["Transp. Público", "Caminhada", "Moto", "Bicicleta", "Carro"][item.transporte]}</td>
+      `;
+      tableBody.appendChild(row);
+    });
+  }
+});
+
+function mapSelectValuesToLabels(dataList) {
+  const mappings = {
+    gender: { 0: "Masculino", 1: "Feminino" },
+    family_history: { 1: "Sim", 2: "Não" },
+    favc: { 1: "Sim", 0: "Não" },
+    fcvc: { 0: "Nunca", 1: "Às vezes", 2: "Sempre" },
+    ncp: { 0: "1-2", 1: "Três", 2: "Mais de 3" },
+    caec: { 1: "Sim", 0: "Não" },
+    smoke: { 1: "Sim", 0: "Não" },
+    ch2o: { 0: "Menos de 1 litro", 1: "Entre 1-2 litros", 2: "Mais de 2 litros" },
+    scc: { 1: "Sim", 0: "Não" },
+    faf: {
+      0: "Não faço",
+      1: "1-2 dias",
+      2: "2-4 dias",
+      3: "4-5 dias"
+    },
+    tue: { 0: "0-2h", 1: "3-5h", 2: "Mais de 5h" },
+    calc: {
+      0: "Não bebo",
+      1: "Às vezes",
+      2: "Frequentemente",
+      3: "Sempre"
+    },
+    transportation: {
+      0: "Transporte Público",
+      1: "Caminhada",
+      2: "Moto",
+      3: "Bicicleta",
+      4: "Carro"
+    },
+    outcome: {
+      0: "Peso Normal",
+      1: "Abaixo do Peso",
+      2: "Obesidade Grau I",
+      3: "Obesidade Grau II",
+      4: "Obesidade Grau III",
+      5: "Acima do Peso Grau I",
+      6: "Acima do Peso Grau II"
+    }
+  };
+
+  return dataList.pessoas.map(item => {
+    const newItem = { ...item };
+
+    for (const key in mappings) {
+      if (newItem.hasOwnProperty(key)) {
+        const value = newItem[key];
+        // Só aplica mapeamento se o valor for reconhecido
+        newItem[key] = mappings[key].hasOwnProperty(value)
+          ? mappings[key][value]
+          : value;
+      }
+    }
+ 
+    return newItem;
+  });
+}
+
 /*
   --------------------------------------------------------------------------------------
   Função para obter a lista existente do servidor via requisição GET
   --------------------------------------------------------------------------------------
 */
 const getList = async () => {
-  let url = 'http://127.0.0.1:5000/pacientes';
+  let url = 'http://127.0.0.1:5000/pessoas';
   fetch(url, {
     method: 'get',
   })
     .then((response) => response.json())
     .then((data) => {
-      data.pacientes.forEach(item => insertList(item.name, 
-                                                item.preg, 
-                                                item.plas,
-                                                item.pres,
-                                                item.skin,
-                                                item.test,
-                                                item.mass,
-                                                item.pedi,
+      data = mapSelectValuesToLabels(data);
+      data.forEach(item => insertList(  item.id,
+                                                item.nome, 
+                                                item.gender, 
                                                 item.age,
+                                                item.height,
+                                                item.weight,
+                                                item.family_history,
+                                                item.favc,
+                                                item.fcvc,
+                                                item.ncp,
+                                                item.caec,
+                                                item.smoke,
+                                                item.ch2o,
+                                                item.scc,
+                                                item.faf,
+                                                item.tue,
+                                                item.calc,
+                                                item.transportation,
                                                 item.outcome
                                               ))
     })
@@ -33,7 +138,7 @@ const getList = async () => {
   --------------------------------------------------------------------------------------
 */
 const clearTable = () => {
-  var table = document.getElementById('myTable');
+  var table = document.getElementById('data-table');
   // Remove todas as linhas exceto o cabeçalho (primeira linha)
   while(table.rows.length > 1) {
     table.deleteRow(1);
@@ -68,22 +173,34 @@ document.addEventListener('DOMContentLoaded', function() {
   Função para colocar um item na lista do servidor via requisição POST
   --------------------------------------------------------------------------------------
 */
-const postItem = async (inputPatient, inputPreg, inputPlas,
-                        inputPres, inputSkin, inputTest, 
-                        inputMass, inputPedi, inputAge) => {
+const postItem = async (gender, age, height,
+                        weight, family_history, favc, 
+                        fcvc, ncp, caec,
+                        smoke, ch2o, scc, faf,
+                        tue, calc, transportation,
+                        nome
+                      ) => {
     
   const formData = new FormData();
-  formData.append('name', inputPatient);
-  formData.append('preg', inputPreg);
-  formData.append('plas', inputPlas);
-  formData.append('pres', inputPres);
-  formData.append('skin', inputSkin);
-  formData.append('test', inputTest);
-  formData.append('mass', inputMass);
-  formData.append('pedi', inputPedi);
-  formData.append('age', inputAge);
+  formData.append('gender', gender);
+  formData.append('age', age);
+  formData.append('height', height);
+  formData.append('weight', weight);
+  formData.append('family_history', family_history);
+  formData.append('favc', favc);
+  formData.append('fcvc', fcvc);
+  formData.append('ncp', ncp);
+  formData.append('caec', caec);
+  formData.append('smoke', smoke);
+  formData.append('ch2o', ch2o);
+  formData.append('scc', scc);
+  formData.append('faf', faf);
+  formData.append('tue', tue);
+  formData.append('calc', calc);
+  formData.append('transportation', transportation);
+  formData.append('nome', nome);
 
-  let url = 'http://127.0.0.1:5000/paciente';
+  let url = 'http://127.0.0.1:5000/pessoa';
   return fetch(url, {
     method: 'post',
     body: formData
@@ -124,7 +241,7 @@ const removeElement = () => {
   for (i = 0; i < close.length; i++) {
     close[i].onclick = function () {
       let div = this.parentElement.parentElement;
-      const nomeItem = div.getElementsByTagName('td')[0].innerHTML
+      const nomeItem = div.getElementsByTagName('td')[1].innerHTML
       if (confirm("Você tem certeza?")) {
         div.remove()
         deleteItem(nomeItem)
@@ -141,7 +258,7 @@ const removeElement = () => {
 */
 const deleteItem = (item) => {
   console.log(item)
-  let url = 'http://127.0.0.1:5000/paciente?name='+item;
+  let url = 'http://127.0.0.1:5000/pessoa?nome='+item;
   fetch(url, {
     method: 'delete'
   })
@@ -159,66 +276,88 @@ const deleteItem = (item) => {
 const newItem = async (event) => {
   event.preventDefault();
 
-  let inputPatient = document.getElementById("newInput").value;
-  let inputPreg = document.getElementById("newPreg").value;
-  let inputPlas = document.getElementById("newPlas").value;
-  let inputPres = document.getElementById("newPres").value;
-  let inputSkin = document.getElementById("newSkin").value;
-  let inputTest = document.getElementById("newTest").value;
-  let inputMass = document.getElementById("newMass").value;
-  let inputPedi = document.getElementById("newPedi").value;
-  let inputAge = document.getElementById("newAge").value;
+  let nome = document.getElementById("nome").value;
+  let gender = document.getElementById("gender").value;
+  let age = document.getElementById("age").value;
+  let height = document.getElementById("height").value;
+  let weight = document.getElementById("weight").value;
+  let family_history = document.getElementById("family_history").value;
+  let favc = document.getElementById("favc").value;
+  let fcvc = document.getElementById("fcvc").value;
+  let ncp = document.getElementById("ncp").value;
+  let caec = document.getElementById("caec").value;
+  let smoke = document.getElementById("smoke").value;
+  let ch2o = document.getElementById("ch2o").value;
+  let scc = document.getElementById("scc").value;
+  let faf = document.getElementById("faf").value;
+  let tue = document.getElementById("tue").value;
+  let calc = document.getElementById("calc").value;
+  let transportation = document.getElementById("transportation").value;
 
   // Verifique se o nome do produto já existe antes de adicionar
-  const checkUrl = `http://127.0.0.1:5000/pacientes?nome=${inputPatient}`;
+  const checkUrl = `http://127.0.0.1:5000/pessoas?nome=${nome}`;
   fetch(checkUrl, {
     method: 'get'
   })
     .then((response) => response.json())
     .then(async (data) => {
-      if (data.pacientes && data.pacientes.some(item => item.name === inputPatient)) {
-        alert("O paciente já está cadastrado.\nCadastre o paciente com um nome diferente ou atualize o existente.");
-      } else if (inputPatient === '') {
-        alert("O nome do paciente não pode ser vazio!");
-      } else if (isNaN(inputPreg) || isNaN(inputPlas) || isNaN(inputPres) || isNaN(inputSkin) || isNaN(inputTest) || isNaN(inputMass) || isNaN(inputPedi) || isNaN(inputAge)) {
-        alert("Esse(s) campo(s) precisam ser números!");
+      if (data.pessoas && data.pessoas.some(item => item.nome === nome)) {
+        alert("Pessoa já está cadastrada.\nCadastre uma pessoa com um nome diferente ou atualize o existente.");
+      } else if (nome === '') {
+        alert("O nome da pessoa não pode ser vazio!");
+      } else if (isNaN(gender) || isNaN(age) || isNaN(height) || isNaN(weight) || isNaN(family_history) || isNaN(favc) || isNaN(fcvc) || isNaN(ncp)
+      || isNaN(caec) || isNaN(smoke) || isNaN(ch2o) || isNaN(scc) || isNaN(faf) || isNaN(tue) || isNaN(calc) || isNaN(transportation)) {
+        alert("Todos os campos devem ser preenchidos!");
       } else {
         try {
           // Envia os dados para o servidor e aguarda a resposta com o diagnóstico
-          const result = await postItem(inputPatient, inputPreg, inputPlas, inputPres, inputSkin, inputTest, inputMass, inputPedi, inputAge);
+          const result = await postItem(gender, age, height,
+                        weight, family_history, favc, 
+                        fcvc, ncp, caec,
+                        smoke, ch2o, scc, faf,
+                        tue, calc, transportation,
+                        nome);
             // Limpa o formulário
-          document.getElementById("newInput").value = "";
-          document.getElementById("newPreg").value = "";
-          document.getElementById("newPlas").value = "";
-          document.getElementById("newPres").value = "";
-          document.getElementById("newSkin").value = "";
-          document.getElementById("newTest").value = "";
-          document.getElementById("newMass").value = "";
-          document.getElementById("newPedi").value = "";
-          document.getElementById("newAge").value = "";
+          document.getElementById("nome").value = "";
+          document.getElementById("gender").value = "";
+          document.getElementById("age").value = "";
+          document.getElementById("height").value = "";
+          document.getElementById("weight").value = "";
+          document.getElementById("family_history").value = "";
+          document.getElementById("favc").value = "";
+          document.getElementById("fcvc").value = "";
+          document.getElementById("ncp").value = "";
+          document.getElementById("caec").value = "";
+          document.getElementById("smoke").value = "";
+          document.getElementById("ch2o").value = "";
+          document.getElementById("scc").value = "";
+          document.getElementById("faf").value = "";
+          document.getElementById("tue").value = "";
+          document.getElementById("calc").value = "";
+          document.getElementById("transportation").value = "";
           
           // Recarrega a lista completa para mostrar o novo paciente com o diagnóstico
           await refreshList();
           
           // Mostra mensagem de sucesso com o diagnóstico
-          const diagnostico = result.outcome === 1 ? "DIABÉTICO" : "NÃO DIABÉTICO";
-          alert(`Paciente adicionado com sucesso!\nDiagnóstico: ${diagnostico}`);
+          // const diagnostico = result.outcome === 1 ? "DIABÉTICO" : "NÃO DIABÉTICO";
+          // alert(`Paciente adicionado com sucesso!\nDiagnóstico: ${diagnostico}`);
           
           // Scroll para a tabela para mostrar o novo resultado
-          document.querySelector('.items').scrollIntoView({ 
-            behavior: 'smooth', 
-            block: 'center' 
-          });
+          // document.querySelector('.items').scrollIntoView({ 
+          //   behavior: 'smooth', 
+          //   block: 'center' 
+          // });
           
         } catch (error) {
-          console.error('Erro ao adicionar paciente:', error);
-          alert("Erro ao adicionar paciente. Tente novamente.");
+          console.error('Erro ao adicionar pessoa:', error);
+          alert("Erro ao adicionar pessoa. Tente novamente.");
         }
       }
     })
     .catch((error) => {
       console.error('Error:', error);
-      alert("Erro ao verificar paciente existente. Tente novamente.");
+      alert("Erro ao verificar pessoa existente. Tente novamente.");
     });
 }
 
@@ -228,9 +367,19 @@ const newItem = async (event) => {
   Função para inserir items na lista apresentada
   --------------------------------------------------------------------------------------
 */
-const insertList = (namePatient, preg, plas, pres, skin, test, mass, pedi, age, outcome) => {
-  var item = [namePatient, preg, plas, pres, skin, test, mass, pedi, age];
-  var table = document.getElementById('myTable');
+const insertList = (id, gender, age, height,
+                        weight, family_history, favc, 
+                        fcvc, ncp, caec,
+                        smoke, ch2o, scc, faf,
+                        tue, calc, transportation,
+                        nome, outcome) => {
+  var item = [id, gender, age, height,
+                        weight, family_history, favc, 
+                        fcvc, ncp, caec,
+                        smoke, ch2o, scc, faf,
+                        tue, calc, transportation,
+                        nome, outcome];
+  var table = document.getElementById('data-table');
   var row = table.insertRow();
 
   // Insere as células com os dados do paciente
@@ -239,17 +388,12 @@ const insertList = (namePatient, preg, plas, pres, skin, test, mass, pedi, age, 
     cell.textContent = item[i];
   }
 
-  // Insere a célula do diagnóstico com styling
-  var diagnosticCell = row.insertCell(item.length);
-  const diagnosticText = outcome === 1 ? "DIABÉTICO" : "NÃO DIABÉTICO";
-  diagnosticCell.textContent = diagnosticText;
-  
   // Aplica styling baseado no diagnóstico
-  if (outcome === 1) {
-    diagnosticCell.className = "diagnostic-positive";
-  } else {
-    diagnosticCell.className = "diagnostic-negative";
-  }
+  // if (outcome === 1) {
+  //   diagnosticCell.className = "diagnostic-positive";
+  // } else {
+  //   diagnosticCell.className = "diagnostic-negative";
+  // }
 
   // Insere o botão de deletar
   var deleteCell = row.insertCell(-1);
