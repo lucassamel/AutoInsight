@@ -23,7 +23,7 @@ home_tag = Tag(
     name="Documentação",
     description="Seleção de documentação: Swagger, Redoc ou RapiDoc",
 )
-paciente_tag = Tag(
+pessoa_tag = Tag(
     name="Pessoa",
     description="Adição, visualização, remoção e predição de pessoas com Obesidade",
 )
@@ -43,39 +43,39 @@ def docs():
     return redirect("/openapi")
 
 
-# Rota de listagem de pacientes
+# Rota de listagem de pessoas
 @app.get(
-    "/pacientes",
-    tags=[paciente_tag],
+    "/pessoas",
+    tags=[pessoa_tag],
     responses={"200": PessoaViewSchema, "404": ErrorSchema},
 )
-def get_pacientes():
-    """Lista todos os pacientes cadastrados na base
+def get_pessoas():
+    """Lista todas as pessoas cadastradas na base
     Args:
        none
 
     Returns:
-        list: lista de pacientes cadastrados na base
+        list: lista de pessoas cadastradas na base
     """
-    logger.debug("Coletando dados sobre todos os pacientes")
+    logger.debug("Coletando dados sobre todas as pessoas")
     # Criando conexão com a base
     session = Session()
-    # Buscando todos os pacientes
-    pacientes = session.query(Pessoa).all()
+    # Buscando todas as pessoas
+    pessoas = session.query(Pessoa).all()
 
-    if not pacientes:
-        # Se não houver pacientes
-        return {"pacientes": []}, 200
+    if not pessoas:
+        # Se não houver pessoas cadastradas
+        return {"pessoas": []}, 200
     else:
-        logger.debug(f"%d pacientes econtrados" % len(pacientes))
-        print(pacientes)
-        return apresenta_pessoas(pacientes), 200
+        logger.debug(f"%d pessoas econtradas" % len(pessoas))
+        print(pessoas)
+        return apresenta_pessoas(pessoas), 200
 
 
-# Rota de adição de paciente
+# Rota de adição de pessoa
 @app.post(
-    "/paciente",
-    tags=[paciente_tag],
+    "/pessoa",
+    tags=[pessoa_tag],
     responses={
         "200": PessoaViewSchema,
         "400": ErrorSchema,
@@ -83,24 +83,31 @@ def get_pacientes():
     },
 )
 def predict(form: PessoaSchema):
-    """Adiciona um novo paciente à base de dados
-    Retorna uma representação dos pacientes e diagnósticos associados.
-
+    """Adiciona uma nova pessoa à base de dados
+    Retorna uma representação das pessoas e sua classificação de obesidade
     """
     # Instanciando classes
     preprocessador = PreProcessador()
     pipeline = Pipeline()
 
     # Recuperando os dados do formulário
-    name = form.name
-    preg = form.preg
-    plas = form.plas
-    pres = form.pres
-    skin = form.skin
-    test = form.test
-    mass = form.mass
-    pedi = form.pedi
+    nome = form.nome
+    gender = form.gender
     age = form.age
+    height = form.height
+    weight = form.weight
+    family_history = form.family_history
+    favc = form.favc
+    fcvc = form.fcvc
+    ncp = form.ncp
+    caec = form.caec
+    smoke = form.smoke
+    ch2o = form.ch2o
+    scc = form.scc
+    faf = form.faf
+    tue = form.tue
+    calc = form.calc
+    transportation = form.transportation
 
     # Preparando os dados para o modelo
     X_input = preprocessador.preparar_form(form)
@@ -110,127 +117,135 @@ def predict(form: PessoaSchema):
     # Realizando a predição
     outcome = int(modelo.predict(X_input)[0])
 
-    paciente = Pessoa(
-        name=name,
-        preg=preg,
-        plas=plas,
-        pres=pres,
-        skin=skin,
-        test=test,
-        mass=mass,
-        pedi=pedi,
+    pessoa = Pessoa(
+        nome=nome,
+        gender=gender,
         age=age,
-        outcome=outcome,
+        height=height,
+        weight=weight,
+        family_history=family_history,
+        favc=favc,
+        fcvc=fcvc,
+        ncp=ncp,
+        caec=caec,
+        smoke=smoke,
+        ch2o=ch2o,
+        scc=scc,
+        faf=faf,
+        tue=tue,
+        calc=calc,
+        transportation=transportation,
+        outcome=outcome               
     )
-    logger.debug(f"Adicionando produto de nome: '{paciente.name}'")
+    logger.debug(f"Adicionando uma pessoa: '{pessoa.nome}'")
 
     try:
         # Criando conexão com a base
         session = Session()
 
         # Checando se pessoa já existe na base
-        if session.query(Pessoa).filter(Pessoa.name == form.name).first():
-            error_msg = "Paciente já existente na base :/"
+        if session.query(Pessoa).filter(Pessoa.nome == form.nome).first():
+            error_msg = "Essa Pessoa já existente na base :/"
             logger.warning(
-                f"Erro ao adicionar paciente '{paciente.name}', {error_msg}"
+                f"Erro ao adicionar pessoa '{pessoa.nome}', {error_msg}"
             )
             return {"message": error_msg}, 409
 
         # Adicionando pessoa
-        session.add(paciente)
+        session.add(pessoa)
         # Efetivando o comando de adição
         session.commit()
         # Concluindo a transação
-        logger.debug(f"Adicionado paciente de nome: '{paciente.name}'")
-        return apresenta_pessoa(paciente), 200
+        logger.debug(f"Adicionado pessoa de nome: '{pessoa.nome}'")
+        return apresenta_pessoa(pessoa), 200
 
     # Caso ocorra algum erro na adição
     except Exception as e:
         error_msg = "Não foi possível salvar novo item :/"
         logger.warning(
-            f"Erro ao adicionar paciente '{paciente.name}', {error_msg}"
+            f"Erro ao adicionar pessoa '{pessoa.nome}', {error_msg}"
         )
         return {"message": error_msg}, 400
 
 
 # Métodos baseados em nome
-# Rota de busca de paciente por nome
+# Rota de busca de pessoa por nome
 @app.get(
-    "/paciente",
-    tags=[paciente_tag],
+    "/pessoa",
+    tags=[pessoa_tag],
     responses={"200": PessoaViewSchema, "404": ErrorSchema},
 )
-def get_paciente(query: PessoaBuscaSchema):
-    """Faz a busca por um paciente cadastrado na base a partir do nome
+def get_pessoa(query: PessoaBuscaSchema):
+    """Faz a busca por uma pessoa cadastrado na base a partir do nome
 
     Args:
-        nome (str): nome do paciente
+        nome (str): nome da pessoa
 
     Returns:
-        dict: representação do paciente e diagnóstico associado
+        dict: representação da pessoa e classificação de obesidade
     """
 
-    paciente_nome = query.name
-    logger.debug(f"Coletando dados sobre produto #{paciente_nome}")
+    pessoa_nome = query.name
+    logger.debug(f"Coletando dados sobre produto #{pessoa_nome}")
     # criando conexão com a base
     session = Session()
     # fazendo a busca
-    paciente = (
-        session.query(Pessoa).filter(Pessoa.name == paciente_nome).first()
+    pessoa = (
+        session.query(Pessoa).filter(Pessoa.nome == pessoa_nome).first()
     )
 
-    if not paciente:
-        # se o paciente não foi encontrado
-        error_msg = f"Paciente {paciente_nome} não encontrado na base :/"
+    if not pessoa:
+        # se o pessoa não foi encontrado
+        error_msg = f"Pessoa {pessoa_nome} não encontrado na base :/"
         logger.warning(
-            f"Erro ao buscar produto '{paciente_nome}', {error_msg}"
+            f"Erro ao buscar produto '{pessoa_nome}', {error_msg}"
         )
         return {"mesage": error_msg}, 404
     else:
-        logger.debug(f"Paciente econtrado: '{paciente.name}'")
-        # retorna a representação do paciente
-        return apresenta_pessoa(paciente), 200
+        logger.debug(f"Pessoa econtrado: '{pessoa.nome}'")
+        # retorna a representação do pessoa
+        return apresenta_pessoa(pessoa), 200
 
 
-# Rota de remoção de paciente por nome
+# Rota de remoção de pessoa por nome
 @app.delete(
-    "/paciente",
-    tags=[paciente_tag],
+    "/pessoa",
+    tags=[pessoa_tag],
     responses={"200": PessoaViewSchema, "404": ErrorSchema},
 )
 def delete_paciente(query: PessoaBuscaSchema):
-    """Remove um paciente cadastrado na base a partir do nome
+    """Remove um pessoa cadastrado na base a partir do nome
 
     Args:
-        nome (str): nome do paciente
+        nome (str): nome da pessoa
 
     Returns:
         msg: Mensagem de sucesso ou erro
     """
 
-    paciente_nome = unquote(query.name)
-    logger.debug(f"Deletando dados sobre paciente #{paciente_nome}")
+    pessoa_nome = unquote(query.nome)
+    logger.debug(f"Deletando dados sobre pessoa #{pessoa_nome}")
 
     # Criando conexão com a base
     session = Session()
 
-    # Buscando paciente
-    paciente = (
-        session.query(Pessoa).filter(Pessoa.name == paciente_nome).first()
+    # Buscando pessoa
+    pessoa = (
+        session.query(Pessoa).filter(Pessoa.nome == pessoa_nome).first()
     )
 
-    if not paciente:
-        error_msg = "Paciente não encontrado na base :/"
+    if not pessoa:
+        error_msg = "Pessoa não encontrado na base :/"
         logger.warning(
-            f"Erro ao deletar paciente '{paciente_nome}', {error_msg}"
+            f"Erro ao deletar pessoa '{pessoa_nome}', {error_msg}"
         )
         return {"message": error_msg}, 404
     else:
-        session.delete(paciente)
+        session.delete(pessoa)
         session.commit()
-        logger.debug(f"Deletado paciente #{paciente_nome}")
+        logger.debug(f"Deletado pessoa #{pessoa_nome}")
         return {
-            "message": f"Paciente {paciente_nome} removido com sucesso!"
+            "message": f"Pessoa {pessoa_nome} removida com sucesso!"
         }, 200
 
 

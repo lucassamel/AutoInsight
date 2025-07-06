@@ -11,6 +11,7 @@ class Pessoa(Base):
     __tablename__ = 'pessoas'
     
     id = Column(Integer, primary_key=True)
+    nome = Column("Name", String(100))
     gender= Column("Gender", String(50))
     age = Column("Age", Integer)
     height = Column("Height", Float)
@@ -25,28 +26,24 @@ class Pessoa(Base):
     scc = Column("SCC", Integer)
     faf = Column("FAF", Integer)
     tue = Column("TUE", Integer)
-    calc = Column("CALC", Integer)
-    bike = Column("Bike", Integer)
-    motorbike = Column("Motorbike", Integer)
-    public_transportation = Column("PublicTransportation", Integer)
-    walking = Column("Walking", Integer)
+    calc = Column("CALC", Integer)    
+    transportation = Column("PublicTransportation", Integer)    
     outcome = Column("Diagnostic", Integer, nullable=True)
     data_insercao = Column(DateTime, default=datetime.now())
     
-    def __init__(self, gender:int, height:float, weight:int, family_history:int,
+    def __init__(self, nome:str, gender:int, height:float, weight:int, family_history:int,
                  age:int, favc:int, fcvc:int, ncp:int, 
                  caec:int, smoke:int, sh2o:int, 
                  scc:int, faf:int, tue:int,
-                 calc:int, bike:int, motorbike:int,
-                 automobile:int, public_transportation:int, walking:int,
-                 outcome:int, 
+                 calc:int, transportation:int, outcome:int, 
                  data_insercao:Union[DateTime, None] = None):
         """
         Cria uma Pessoa com os atributos necessários 
         para o diagnóstico de obesidade.
 
         Arguments:
-        gender: genero 
+            nome: nome da pessoa
+            gender: genero 
             height: altura
             weight: peso
             family_history: historico familiar de obesidade
@@ -59,14 +56,12 @@ class Pessoa(Base):
             scc: monitora as calorias consumidas
             faf: frequencia de atividade fisica
             tue: tempo de uso de tela
-            calc: frequencia de consumo de alcool
-            bike: Bicicleta como transporte pricipal
-            motorbike: idade
-            public_transportation: idade
-            walking: idade
+            calc: frequencia de consumo de alcool             
+            transportation: idade            
             outcome: diagnóstico
             data_insercao: data de quando o paciente foi inserido à base
         """
+        self.nome = nome
         self.gender = gender
         self.age = age
         self.height = height
@@ -82,11 +77,7 @@ class Pessoa(Base):
         self.faf = faf
         self.tue = tue
         self.calc = calc
-        self.bike = bike
-        self.motorbike = motorbike
-        self.automobile = automobile
-        self.public_transportation = public_transportation
-        self.walking = walking
+        self.transportation = transportation
         self.outcome = outcome
 
         # se não for informada, será o data exata da inserção no banco

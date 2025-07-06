@@ -6,9 +6,7 @@ class Model:
         """Inicializa o modelo"""
         self.model = None
     
-    def carrega_modelo(self, path):
-        """Dependendo se o final for .pkl ou .joblib, carregamos de uma forma ou de outra
-        """
+    def carrega_modelo(self, path):        
         
         if path.endswith('.pkl'):
             with open(path, 'rb') as file:
@@ -18,7 +16,7 @@ class Model:
         return self.model
     
     def preditor(self, X_input):
-        """Realiza a predição de um paciente com base no modelo treinado
+        """Realiza a classificação da pessoa com base no modelo treinado
         """
         if self.model is None:
             raise Exception('Modelo não foi carregado. Use carrega_modelo() primeiro.')
