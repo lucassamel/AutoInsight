@@ -1,0 +1,50 @@
+[2025-07-06 16:30:21,811] INFO _log() L97   [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000 - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\venv\Lib\site-packages\werkzeug\_internal.py L97  
+[2025-07-06 16:30:21,812] INFO _log() L97   [33mPress CTRL+C to quit[0m - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\venv\Lib\site-packages\werkzeug\_internal.py L97  
+[2025-07-06 16:30:58,861] WARNING predict() L149  Erro ao adicionar pessoa 'Maria', Essa Pessoa já existente na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L149 
+[2025-07-06 16:30:58,876] WARNING predict() L149  Erro ao adicionar pessoa 'Maria', Essa Pessoa já existente na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L149 
+[2025-07-06 16:30:58,895] WARNING predict() L149  Erro ao adicionar pessoa 'Maria', Essa Pessoa já existente na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L149 
+[2025-07-06 16:30:59,447] WARNING predict() L149  Erro ao adicionar pessoa 'Maria', Essa Pessoa já existente na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L149 
+[2025-07-06 16:30:59,459] WARNING delete_paciente() L239  Erro ao deletar pessoa 'PessoaInexistente', Pessoa não encontrado na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L239 
+[2025-07-06 16:30:59,497] WARNING predict() L149  Erro ao adicionar pessoa 'Maria', Essa Pessoa já existente na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L149 
+[2025-07-06 16:31:28,541] WARNING predict() L149  Erro ao adicionar pessoa 'Maria', Essa Pessoa já existente na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L149 
+[2025-07-06 16:31:28,558] WARNING predict() L149  Erro ao adicionar pessoa 'Maria', Essa Pessoa já existente na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L149 
+[2025-07-06 16:31:28,581] WARNING predict() L149  Erro ao adicionar pessoa 'Maria', Essa Pessoa já existente na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L149 
+[2025-07-06 16:31:29,155] WARNING predict() L149  Erro ao adicionar pessoa 'Maria', Essa Pessoa já existente na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L149 
+[2025-07-06 16:31:29,169] WARNING delete_paciente() L239  Erro ao deletar pessoa 'PessoaInexistente', Pessoa não encontrado na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L239 
+[2025-07-06 16:31:29,207] WARNING predict() L149  Erro ao adicionar pessoa 'Maria', Essa Pessoa já existente na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L149 
+[2025-07-06 16:31:56,139] WARNING predict() L149  Erro ao adicionar pessoa 'Maria', Essa Pessoa já existente na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L149 
+[2025-07-06 16:31:56,155] WARNING predict() L149  Erro ao adicionar pessoa 'Maria', Essa Pessoa já existente na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L149 
+[2025-07-06 16:31:56,176] WARNING predict() L149  Erro ao adicionar pessoa 'Maria', Essa Pessoa já existente na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L149 
+[2025-07-06 16:31:56,730] WARNING predict() L149  Erro ao adicionar pessoa 'Maria', Essa Pessoa já existente na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L149 
+[2025-07-06 16:31:56,740] WARNING delete_paciente() L239  Erro ao deletar pessoa 'PessoaInexistente', Pessoa não encontrado na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L239 
+[2025-07-06 16:31:56,789] WARNING predict() L149  Erro ao adicionar pessoa 'Maria', Essa Pessoa já existente na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L149 
+[2025-07-06 16:38:42,487] WARNING predict() L149  Erro ao adicionar pessoa 'Maria', Essa Pessoa já existente na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L149 
+[2025-07-06 16:38:42,504] WARNING predict() L149  Erro ao adicionar pessoa 'Maria', Essa Pessoa já existente na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L149 
+[2025-07-06 16:38:42,520] WARNING predict() L149  Erro ao adicionar pessoa 'Maria', Essa Pessoa já existente na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L149 
+[2025-07-06 16:38:42,756] WARNING predict() L149  Erro ao adicionar pessoa 'Maria', Essa Pessoa já existente na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L149 
+[2025-07-06 16:38:42,766] WARNING delete_paciente() L239  Erro ao deletar pessoa 'PessoaInexistente', Pessoa não encontrado na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L239 
+[2025-07-06 16:38:42,801] WARNING predict() L149  Erro ao adicionar pessoa 'Maria', Essa Pessoa já existente na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L149 
+[2025-07-06 16:39:44,331] INFO _log() L97   [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000 - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\venv\Lib\site-packages\werkzeug\_internal.py L97  
+[2025-07-06 16:39:44,331] INFO _log() L97   [33mPress CTRL+C to quit[0m - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\venv\Lib\site-packages\werkzeug\_internal.py L97  
+[2025-07-06 16:39:53,576] WARNING predict() L149  Erro ao adicionar pessoa 'Maria', Essa Pessoa já existente na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L149 
+[2025-07-06 16:39:53,591] WARNING predict() L149  Erro ao adicionar pessoa 'Maria', Essa Pessoa já existente na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L149 
+[2025-07-06 16:39:53,609] WARNING predict() L149  Erro ao adicionar pessoa 'Maria', Essa Pessoa já existente na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L149 
+[2025-07-06 16:39:53,853] WARNING predict() L149  Erro ao adicionar pessoa 'Maria', Essa Pessoa já existente na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L149 
+[2025-07-06 16:39:53,863] WARNING delete_paciente() L239  Erro ao deletar pessoa 'PessoaInexistente', Pessoa não encontrado na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L239 
+[2025-07-06 16:39:53,903] WARNING predict() L149  Erro ao adicionar pessoa 'Maria', Essa Pessoa já existente na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L149 
+[2025-07-06 16:42:13,842] INFO _log() L97   [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000 - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\venv\Lib\site-packages\werkzeug\_internal.py L97  
+[2025-07-06 16:42:13,843] INFO _log() L97   [33mPress CTRL+C to quit[0m - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\venv\Lib\site-packages\werkzeug\_internal.py L97  
+[2025-07-06 16:42:13,846] INFO _log() L97    * Restarting with stat - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\venv\Lib\site-packages\werkzeug\_internal.py L97  
+[2025-07-06 16:42:24,778] WARNING predict() L149  Erro ao adicionar pessoa 'Maria', Essa Pessoa já existente na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L149 
+[2025-07-06 16:42:24,796] WARNING predict() L149  Erro ao adicionar pessoa 'Maria', Essa Pessoa já existente na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L149 
+[2025-07-06 16:42:24,815] WARNING predict() L149  Erro ao adicionar pessoa 'Maria', Essa Pessoa já existente na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L149 
+[2025-07-06 16:42:25,091] WARNING predict() L149  Erro ao adicionar pessoa 'Maria', Essa Pessoa já existente na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L149 
+[2025-07-06 16:42:25,102] WARNING delete_paciente() L239  Erro ao deletar pessoa 'PessoaInexistente', Pessoa não encontrado na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L239 
+[2025-07-06 16:42:25,141] WARNING predict() L149  Erro ao adicionar pessoa 'Maria', Essa Pessoa já existente na base :/ - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\api\app.py L149 
+[2025-07-06 16:42:36,033] INFO _log() L97   127.0.0.1 - - [06/Jul/2025 16:42:36] "DELETE /pessoa?name=Maria HTTP/1.1" 200 - - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\venv\Lib\site-packages\werkzeug\_internal.py L97  
+[2025-07-06 16:43:00,770] INFO _log() L97   [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000 - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\venv\Lib\site-packages\werkzeug\_internal.py L97  
+[2025-07-06 16:43:00,771] INFO _log() L97   [33mPress CTRL+C to quit[0m - call_trace=C:\Users\Fadami\Downloads\Lucas Samel\Puc\AutoInsight\venv\Lib\site-packages\werkzeug\_internal.py L97  

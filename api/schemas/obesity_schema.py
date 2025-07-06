@@ -8,22 +8,22 @@ class PessoaSchema(BaseModel):
     """ Define como uma nova pessoa a ser inserida deve ser representada
     """
     nome: str = "Maria"
-    gender: int = 1
+    gender: int = 0
     age: int = 30
     height: float = 1.70
     weight: int = 70
-    family_history: int = 1
+    family_history: int = 0
     favc: int = 1
     fcvc: int = 1
-    ncp: int = 50
-    caec: int = 50
-    smoke: int = 50
-    ch2o: int = 50
-    scc: int = 50
-    faf: int = 50
-    tue: int = 50
-    calc: int = 50
-    transportation: int = 50
+    ncp: int = 1
+    caec: int = 2
+    smoke: int = 1
+    ch2o: int = 3
+    scc: int = 2
+    faf: int = 1
+    tue: int = 1
+    calc: int = 1
+    transportation: int = 3
     
 class PessoaViewSchema(BaseModel):
     """Define como uma Pessoa será retornado
