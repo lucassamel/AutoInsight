@@ -73,6 +73,8 @@ def test_add_pessoa_prediction(client, sample_pessoa_data):
     assert response.status_code == 200
     data = json.loads(response.data)
     
+    
+    
     # Verifica se o pessoa foi criado com todas as informações
     assert data['nome'] == sample_pessoa_data['nome']
     assert data['gender'] == sample_pessoa_data['gender']
