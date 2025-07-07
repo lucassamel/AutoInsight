@@ -112,7 +112,7 @@ def predict(form: PessoaSchema):
     # Preparando os dados para o modelo
     X_input = preprocessador.preparar_form(form)
     # Carregando modelo
-    model_path = "./MachineLearning/pipelines/rf_obesity_pipeline.pkl"
+    model_path = "./MachineLearning/pipelines/gb_obesity_pipeline.pkl"
     modelo = pipeline.carrega_pipeline(model_path)
     # Realizando a predição
     outcome = int(modelo.predict(X_input)[0])

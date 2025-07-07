@@ -1,39 +1,3 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("health-form");
-  const tableBody = document.getElementById("table-body");
-
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
-
-    renderTable([data]);
-  });
-
-  function renderTable(dataArray) {
-    tableBody.innerHTML = "";
-
-    dataArray.forEach((item, index) => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${index + 1}</td>
-        <td>${item.nome}</td>
-        <td>${item.genero == 0 ? "Masculino" : "Feminino"}</td>
-        <td>${item.idade}</td>
-        <td>${item.altura}</td>
-        <td>${item.peso}</td>
-        <td>${["<1L", "1-2L", ">2L"][item.agua]}</td>
-        <td>${["Nenhuma", "1-2d", "2-4d", "4-5d"][item.atividade_fisica]}</td>
-        <td>${["Nunca", "Às vezes", "Sempre"][item.vegetais]}</td>
-        <td>${["Não bebo", "Às vezes", "Freq.", "Sempre"][item.alcool]}</td>
-        <td>${["Transp. Público", "Caminhada", "Moto", "Bicicleta", "Carro"][item.transporte]}</td>
-      `;
-      tableBody.appendChild(row);
-    });
-  }
-});
-
 function mapSelectValuesToLabels(dataList) {
   const mappings = {
     gender: { 0: "Masculino", 1: "Feminino" },
@@ -166,8 +130,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-
-
 /*
   --------------------------------------------------------------------------------------
   Função para colocar um item na lista do servidor via requisição POST
@@ -236,7 +198,6 @@ const insertDeleteButton = (parent) => {
 */
 const removeElement = () => {
   let close = document.getElementsByClassName("close");
-  // var table = document.getElementById('myTable');
   let i;
   for (i = 0; i < close.length; i++) {
     close[i].onclick = function () {
@@ -336,18 +297,8 @@ const newItem = async (event) => {
           document.getElementById("calc").value = "";
           document.getElementById("transportation").value = "";
           
-          // Recarrega a lista completa para mostrar o novo paciente com o diagnóstico
-          await refreshList();
-          
-          // Mostra mensagem de sucesso com o diagnóstico
-          // const diagnostico = result.outcome === 1 ? "DIABÉTICO" : "NÃO DIABÉTICO";
-          // alert(`Paciente adicionado com sucesso!\nDiagnóstico: ${diagnostico}`);
-          
-          // Scroll para a tabela para mostrar o novo resultado
-          // document.querySelector('.items').scrollIntoView({ 
-          //   behavior: 'smooth', 
-          //   block: 'center' 
-          // });
+          // Recarrega a lista completa 
+          await refreshList();        
           
         } catch (error) {
           console.error('Erro ao adicionar pessoa:', error);
@@ -382,18 +333,11 @@ const insertList = (id, gender, age, height,
   var table = document.getElementById('data-table');
   var row = table.insertRow();
 
-  // Insere as células com os dados do paciente
+  // Insere as células com os dados da pessoa
   for (var i = 0; i < item.length; i++) {
     var cell = row.insertCell(i);
     cell.textContent = item[i];
   }
-
-  // Aplica styling baseado no diagnóstico
-  // if (outcome === 1) {
-  //   diagnosticCell.className = "diagnostic-positive";
-  // } else {
-  //   diagnosticCell.className = "diagnostic-negative";
-  // }
 
   // Insere o botão de deletar
   var deleteCell = row.insertCell(-1);

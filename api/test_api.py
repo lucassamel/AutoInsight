@@ -186,23 +186,23 @@ def test_prediction_edge_cases(client):
     
     # Teste com valores máximos típicos
     max_data = {
-        "nome": "Paula",
+        "nome": "Ana",
         "gender": 1,
-        "age": 32,
-        "height": 1.65,
-        "weight": 60,
+        "age": 1,
+        "height": 1,
+        "weight": 1,
         "family_history": 0,
-        "favc": 1,
-        "fcvc": 1,
-        "ncp": 1,
-        "caec": 2,
-        "smoke": 1,
-        "ch2o": 3,
-        "scc": 2,
-        "faf": 1,
-        "tue": 1,
-        "calc": 1,
-        "transportation": 3
+        "favc": 0,
+        "fcvc": 0,
+        "ncp": 0,
+        "caec": 0,
+        "smoke": 0,
+        "ch2o": 0,
+        "scc": 0,
+        "faf": 0,
+        "tue": 0,
+        "calc": 0,
+        "transportation": 0
     }
     
     response = client.post('/pessoa', 
@@ -216,7 +216,7 @@ def cleanup_test_pessoas():
     """Limpa pessoas de teste do banco"""
     session = Session()
     test_patients = session.query(Pessoa).filter(
-        Pessoa.nome.in_(['Paula', 'José', 'Maria'])
+        Pessoa.nome.in_(['Ana', 'José', 'Maria'])
     ).all()
     
     for patient in test_patients:

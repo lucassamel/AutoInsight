@@ -39,17 +39,17 @@ y = array[:,-1]
     
 # Método para testar o modelo de Regressão Logística a partir do arquivo correspondente
 # O nome do método a ser testado necessita começar com "test_"
-def test_modelo_rf():  
+def test_modelo_gb():  
     # Importando o modelo de regressão logística
-    lr_path = './MachineLearning/models/rf_obesity_classifier.pkl'
-    modelo_rf = modelo.carrega_modelo(lr_path)
+    gb_path = './MachineLearning/pipelines/gb_obesity_pipeline.pkl'
+    modelo_gb = modelo.carrega_modelo(gb_path)
 
     # Obtendo as métricas da Regressão Logística
-    acuracia_lr = avaliador.avaliar(modelo_rf, X, y)
+    acuracia_gb = avaliador.avaliar(modelo_gb, X, y)
     
     # Testando as métricas da Regressão Logística 
     # Modifique as métricas de acordo com seus requisitos
-    assert acuracia_lr >= 0.78 
+    assert acuracia_gb >= 0.78 
     # assert recall_lr >= 0.5 
     # assert precisao_lr >= 0.5 
     # assert f1_lr >= 0.5 
@@ -73,7 +73,7 @@ def test_modelo_knn():
 # Método para testar pipeline Random Forest a partir do arquivo correspondente
 def test_modelo_rf():
     # Importando pipeline de Random Forest
-    rf_path = './MachineLearning/pipelines/obesity_knn.pkl'
+    rf_path = './MachineLearning/models/rf_obesity_classifier.pkl'
     modelo_rf = pipeline.carrega_pipeline(rf_path)
 
     # Obtendo as métricas do Random Forest
