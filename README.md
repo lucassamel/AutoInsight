@@ -1,4 +1,4 @@
-# AutoInsight 🚗📊
+# AutoInsight 📊
 
 **AutoInsight** é uma aplicação de análise de dados voltada para o setor de saúde. 
 Desenvolvido em Python, o projeto utiliza bibliotecas como Streamlit, Pandas e Plotly para criar dashboards dinâmicos e intuitivos.
