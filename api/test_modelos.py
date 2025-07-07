@@ -49,7 +49,7 @@ def test_modelo_gb():
     
     # Testando as métricas da Regressão Logística 
     # Modifique as métricas de acordo com seus requisitos
-    assert acuracia_gb >= 0.78 
+    assert acuracia_gb >= 0.9645390070921985
     # assert recall_lr >= 0.5 
     # assert precisao_lr >= 0.5 
     # assert f1_lr >= 0.5 
@@ -57,7 +57,7 @@ def test_modelo_gb():
 # Método para testar modelo KNN a partir do arquivo correspondente
 def test_modelo_knn():
     # Importando modelo de KNN
-    knn_path = './MachineLearning/models/rf_obesity_classifier.pkl'
+    knn_path = './MachineLearning/models/knn_obesity_.pkl'
     modelo_knn = modelo.carrega_modelo(knn_path)
 
     # Obtendo as métricas do KNN
@@ -65,7 +65,7 @@ def test_modelo_knn():
     
     # Testando as métricas do KNN
     # Modifique as métricas de acordo com seus requisitos
-    assert acuracia_knn >= 0.78
+    assert acuracia_knn >= 0.96
     # assert recall_knn >= 0.5 
     # assert precisao_knn >= 0.5 
     # assert f1_knn >= 0.5 
@@ -81,7 +81,7 @@ def test_modelo_rf():
     
     # Testando as métricas do Random Forest
     # Modifique as métricas de acordo com seus requisitos
-    assert acuracia_rf >= 0.78
+    assert acuracia_rf >= 0.9645390070921985
     # assert recall_rf >= 0.5 
     # assert precisao_rf >= 0.5 
     # assert f1_rf >= 0.5
